@@ -9,7 +9,7 @@ namespace SpecFlowScrutin.Specs.Steps
     public sealed class ScrutinStepDefinitions
     {
 
-        private Scrutin _scrutin;
+        private readonly Scrutin _scrutin;
 
         private List<Candidat> _candidats;
 
@@ -29,31 +29,24 @@ namespace SpecFlowScrutin.Specs.Steps
             {
                 _candidats.Add(new Candidat(h, _candidats.Count));
             }
+
         }
 
         [Given(@"scrutin test")]
         public void GivenScrutin()
         {
-            GivenCandidatsSuivants(new Table("null", "paul", "pierre", "fabrice"));
+            GivenCandidatsSuivants(new Table("paul", "pierre", "fabrice"));
             _scrutin.OuvrirScrutin(_candidats);
         }
 
         [Given(@"electeur (.*) vote (.*)")]
-        public void GivenElecteurVote(string electeur, string leCandidat)
+        public void GivenElecteurVote(string electeur, string? leCandidat)
         {
-            var electeurRecherche = _electeurs.Find(elem => elem.nom == electeur);
-             //Si l'electeur existe deja c'est qu'il a déja voté 
-            if (electeurRecherche == null)
-            {
-                var newInstanceElecteur = new Electeur(electeur, _electeurs.Count + 1);
-                _electeurs.Add(newInstanceElecteur);
-                if (leCandidat == "null")
-                {
-                    leCandidat = null;
-                }
-                _scrutin.Vote(newInstanceElecteur, leCandidat);
+            //var electeurRecherche = _electeurs.Find(elem => elem.nom == electeur);
+            var newInstanceElecteur = new Electeur(electeur, _electeurs.Count + 1);
+            _electeurs.Add(newInstanceElecteur);
 
-            }
+            _scrutin.Vote(newInstanceElecteur, leCandidat);
         }
 
         [When(@"scrutin ferme")]
@@ -93,7 +86,7 @@ namespace SpecFlowScrutin.Specs.Steps
         [Then(@"resultat scrutin est (.*)")]
         public void ThenResultatScrutinEstPaulPierre(string resultatAttendu)
         {
-            _scrutin.afficherResultats().Should().Be(resultatAttendu);
+            _scrutin.AfficherResultats().Should().Be(resultatAttendu);
         }
 
 
@@ -101,7 +94,7 @@ namespace SpecFlowScrutin.Specs.Steps
         [Then("tour est (.*)")]
         public void ThenTourEst(int tourAttendu)
         {
-            int leTour = _scrutin.getTour();
+            int leTour = _scrutin.GetTour();
             leTour.Should().Be(tourAttendu);
         }
 
@@ -116,7 +109,7 @@ namespace SpecFlowScrutin.Specs.Steps
         [Then(@"garder deux candidats")]
         public void ThenGarderDeuxCandidats(Table table)
         {
-            var candidatsDuScrutin = _scrutin.getCandidats();
+            var candidatsDuScrutin = _scrutin.GetCandidats();
 
             table.CompareToSet<Candidat>(candidatsDuScrutin);
         }

@@ -6,7 +6,7 @@ namespace SpecFlowScrutin
 {
     public class Candidat
     {
-        public string nom { get; }
+        public String nom { get; }
         public int id { get; }
         public Candidat(string newName, int newId)
         {

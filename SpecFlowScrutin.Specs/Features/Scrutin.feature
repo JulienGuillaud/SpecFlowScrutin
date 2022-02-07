@@ -10,9 +10,21 @@
 	Scenario: minimum 2 candidat
 		Given candidats suivants
 			| paul |
-		And electeur arthur vote paul
 		When scrutin ouvert
 		Then exception Il n'y a pas assez de candidats
+
+
+	Scenario: ajout candidat quand scrutin fermé
+		Given scrutin test
+		And electeur arthur vote paul
+		And electeur julien vote paul
+		And electeur pascal vote pierre
+		And electeur brice vote pierre
+		And electeur theo vote pierre
+		And electeur dorian vote null
+		When scrutin ferme
+		Given electeur theo vote pierre
+		Then exception Le scrutin est fermé
 
 	Scenario: vote null
 		Given scrutin test

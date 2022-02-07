@@ -5,10 +5,9 @@ using System.Linq;
 namespace SpecFlowScrutin
 {
     [System.Serializable]
-    public class scrutinException : System.Exception
+    public class ScrutinException : System.Exception
     {
-        public scrutinException() { }
-        public scrutinException(string message) : base(message) { }
+        public ScrutinException(string message) : base(message) { }
     }
     public class Scrutin
     {
@@ -30,26 +29,27 @@ namespace SpecFlowScrutin
         public void FermerScrutin()
         {
             estOuvert = false;
-            calculPourcentageVoies();
-            OuvrirScrutin(calcVainqueur());
+            CalculPourcentageVoies();
+            OuvrirScrutin(CalcVainqueur());
         }
 
         public void OuvrirScrutin(List<Candidat> lesCandidats)
         {
-            if(lesCandidats.Count <= 0)
+            if (lesCandidats.Count <= 0)
             {
-                throw new scrutinException("Aucun candidats");
+                throw new ScrutinException("Il n'y a pas assez de candidats");
             }
             else
             {
-                resetScrutin();
+                ResetScrutin();
                 estOuvert = true;
                 tour += 1;
                 Candidats = lesCandidats;
+                Candidats.Add(voteBlanc);
             }
         }
 
-        public String afficherResultats()
+        public String AfficherResultats()
         {
             String resultatString = "";
             foreach (KeyValuePair<Candidat, int> kvp in resultatsVoix)
@@ -64,7 +64,7 @@ namespace SpecFlowScrutin
             return resultatString;
         }
 
-        public void resetScrutin()
+        public void ResetScrutin()
         {
             vainqueurScrutin = voteBlanc;
             resultatsVoix = new Dictionary<Candidat, int>();
@@ -72,7 +72,7 @@ namespace SpecFlowScrutin
             Electeurs = new List<Electeur>();
         }
 
-        public void addCandidat(Candidat leCandidat)
+        public void AddCandidat(Candidat leCandidat)
         {
             if (estOuvert)
             {
@@ -80,38 +80,43 @@ namespace SpecFlowScrutin
             }
             else
             {
-                throw new scrutinException("Le scrutin est fermé");
+                throw new ScrutinException("Le scrutin est fermé");
             }
         }
 
-        public List<Candidat> getCandidats()
+        public List<Candidat> GetCandidats()
         {
             return Candidats;
         }
 
-        public void Vote(Electeur _electeur, String nomCandidat)
+        public void Vote(Electeur leElecteur, String nomCandidat)
         {
             if (estOuvert)
             {
-                Candidat candidatEnregistre = findCandidat(nomCandidat);
-                if(nomCandidat == null || nomCandidat == "null")
+                Candidat candidatEnregistre = Candidats.Find(x => x.nom == nomCandidat);
+                Console.Write("CANDIDAT ENREGISTRE = " + candidatEnregistre.nom);
+                if (nomCandidat == null || nomCandidat == "null")
                 {
                     candidatEnregistre = voteBlanc;
                 }
-                if (candidatEnregistre != null && !(_electeur.aVoter()))
+                if (!(leElecteur.aVoter()))
                 {
-                    _electeur.setAVoter();
-                    Electeurs.Add(_electeur);
+                    leElecteur.setAVoter();
+                    Electeurs.Add(leElecteur);
                     resultatsVoix[candidatEnregistre] = resultatsVoix[candidatEnregistre] + 1;
+                }
+                else
+                {
+                    throw new ScrutinException("Un electeur peux pas voter deux fois");
                 }
             }
             else
             {
-                throw new scrutinException("Le scrutin est fermé");
+                throw new ScrutinException("Le scrutin est fermé");
             }
         }
 
-        public void calculPourcentageVoies()
+        public void CalculPourcentageVoies()
         {
             if (!estOuvert)
             {
@@ -126,16 +131,16 @@ namespace SpecFlowScrutin
             }
             else
             {
-                throw new scrutinException("Le scrutin est Ouvert");
+                throw new ScrutinException("Le scrutin est Ouvert");
             }
         }
 
 
-        public int getTour()
+        public int GetTour()
         {
             return tour;
         }
-        public List<Candidat> calcVainqueur()
+        public List<Candidat> CalcVainqueur()
         {
             if (!estOuvert)
             {
@@ -162,13 +167,13 @@ namespace SpecFlowScrutin
                 else
                 {
                     // Lancer le prochain tour avec les 2 finalistes
-                    if(tour == 1)
+                    if (tour == 1)
                     {
                         var sorted = resultatsRate.OrderByDescending(x => x.Value).ThenBy(x => x.Key);
                         int compteur = 0;
                         foreach (KeyValuePair<Candidat, int> kvp in sorted)
                         {
-                            if(compteur < 2)
+                            if (compteur < 2)
                             {
                                 finalistes.Add(kvp.Key);
                             }
@@ -180,7 +185,7 @@ namespace SpecFlowScrutin
                         }
                     }
                     // Si on est déja au 2eme tour mais qu'il y a pas de gagnant, arreter le scrutin
-                    if(tour == 2)
+                    if (tour == 2)
                     {
                         // Aucun gagnant
                         vainqueurScrutin = voteBlanc;
@@ -193,21 +198,21 @@ namespace SpecFlowScrutin
             }
             else
             {
-                throw new scrutinException("Le scrutin est ouvert");
+                throw new ScrutinException("Le scrutin est ouvert");
             }
         }
 
-        public int getVoixPourcentage(Candidat leCandidat)
+        public int GetVoixPourcentage(Candidat leCandidat)
         {
             return resultatsRate[leCandidat];
         }
-        public int getVoixNb(Candidat leCandidat)
+        public int GetVoixNb(Candidat leCandidat)
         {
             return resultatsVoix[leCandidat];
         }
 
 
-        public Candidat findCandidat(String nom)
+        public Candidat FindCandidat(String nom)
         {
             for (int i = 0; i < Candidats.Count; i++)
             {
