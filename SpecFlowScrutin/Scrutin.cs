@@ -20,7 +20,7 @@ namespace SpecFlowScrutin
         public Dictionary<Candidat, int> resultatsVoix = new Dictionary<Candidat, int>();
         public Dictionary<Candidat, int> resultatsRate = new Dictionary<Candidat, int>();
 
-        protected static Candidat voteBlanc = new Candidat("", 9999999);
+        protected static Candidat voteBlanc = new Candidat("null", 9999999);
 
         public Candidat vainqueurScrutin = voteBlanc;
         public Scrutin()
@@ -42,10 +42,34 @@ namespace SpecFlowScrutin
             }
             else
             {
+                resetScrutin();
                 estOuvert = true;
                 tour += 1;
                 Candidats = lesCandidats;
             }
+        }
+
+        public String afficherResultats()
+        {
+            String resultatString = "";
+            foreach (KeyValuePair<Candidat, int> kvp in resultatsVoix)
+            {
+                Candidat leCandidat = kvp.Key;
+                int totalCandidats = Candidats.Count;
+                int voixCandidat = kvp.Value;
+                int pourcentageVoix = (int)Math.Floor((double)(voixCandidat / totalCandidats) * 100);
+                resultatString += "| " + leCandidat.nom + " : " + " (" + pourcentageVoix + "%)";
+            } // | paul : 3 (60%)| pierre : 2 (40%) |
+            resultatString += " |";
+            return resultatString;
+        }
+
+        public void resetScrutin()
+        {
+            vainqueurScrutin = voteBlanc;
+            resultatsVoix = new Dictionary<Candidat, int>();
+            resultatsRate = new Dictionary<Candidat, int>();
+            Electeurs = new List<Electeur>();
         }
 
         public void addCandidat(Candidat leCandidat)
@@ -70,7 +94,7 @@ namespace SpecFlowScrutin
             if (estOuvert)
             {
                 Candidat candidatEnregistre = findCandidat(nomCandidat);
-                if(nomCandidat == null || nomCandidat == "")
+                if(nomCandidat == null || nomCandidat == "null")
                 {
                     candidatEnregistre = voteBlanc;
                 }
@@ -137,20 +161,30 @@ namespace SpecFlowScrutin
                 }
                 else
                 {
-                    // Prochain tour si on en est au 1er
+                    // Lancer le prochain tour avec les 2 finalistes
                     if(tour == 1)
                     {
                         var sorted = resultatsRate.OrderByDescending(x => x.Value).ThenBy(x => x.Key);
+                        int compteur = 0;
                         foreach (KeyValuePair<Candidat, int> kvp in sorted)
                         {
-                            finalistes.Add(kvp.Key);
+                            if(compteur < 2)
+                            {
+                                finalistes.Add(kvp.Key);
+                            }
+                            else
+                            {
+                                break;
+                            }
+                            compteur++;
                         }
                     }
+                    // Si on est déja au 2eme tour mais qu'il y a pas de gagnant, arreter le scrutin
                     if(tour == 2)
                     {
                         // Aucun gagnant
                         vainqueurScrutin = voteBlanc;
-                        throw new scrutinException("Pas de vainqueurs");
+                        //throw new scrutinException("Pas de vainqueurs"); 
 
                     }
                 }

@@ -127,14 +127,14 @@ namespace SpecFlowScrutin.Specs.Features
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="minimum candidat")]
+        [Xunit.SkippableFactAttribute(DisplayName="minimum 2 candidat")]
         [Xunit.TraitAttribute("FeatureTitle", "Scrutin")]
-        [Xunit.TraitAttribute("Description", "minimum candidat")]
-        public virtual void MinimumCandidat()
+        [Xunit.TraitAttribute("Description", "minimum 2 candidat")]
+        public virtual void Minimum2Candidat()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("minimum candidat", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("minimum 2 candidat", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 10
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -173,14 +173,14 @@ namespace SpecFlowScrutin.Specs.Features
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="vainqueur majorite absolue")]
+        [Xunit.SkippableFactAttribute(DisplayName="vote null")]
         [Xunit.TraitAttribute("FeatureTitle", "Scrutin")]
-        [Xunit.TraitAttribute("Description", "vainqueur majorite absolue")]
-        public virtual void VainqueurMajoriteAbsolue()
+        [Xunit.TraitAttribute("Description", "vote null")]
+        public virtual void VoteNull()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("vainqueur majorite absolue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("vote null", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 17
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -211,27 +211,36 @@ namespace SpecFlowScrutin.Specs.Features
   testRunner.And("electeur julien vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 21
-  testRunner.And("electeur brice vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("electeur pascal vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 22
-  testRunner.When("scrutin ferme", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.And("electeur brice vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 23
-  testRunner.Then("vainqueur est paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("electeur theo vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 24
+  testRunner.And("electeur dorian vote null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 25
+  testRunner.When("scrutin ferme", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 26
+  testRunner.Then("vainqueur est pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="match nul premier tour")]
+        [Xunit.SkippableFactAttribute(DisplayName="vote double")]
         [Xunit.TraitAttribute("FeatureTitle", "Scrutin")]
-        [Xunit.TraitAttribute("Description", "match nul premier tour")]
-        public virtual void MatchNulPremierTour()
+        [Xunit.TraitAttribute("Description", "vote double")]
+        public virtual void VoteDouble()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("match nul premier tour", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 25
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("vote double", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 28
  this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -251,31 +260,184 @@ namespace SpecFlowScrutin.Specs.Features
             else
             {
                 this.ScenarioStart();
-#line 26
+#line 29
   testRunner.Given("scrutin test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 27
+#line 30
   testRunner.And("electeur arthur vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 28
-  testRunner.And("electeur julien vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 29
-  testRunner.And("electeur pascal vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 30
-  testRunner.And("electeur brice vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
 #line 31
-  testRunner.And("electeur dorian vote fabrice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("electeur julien vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 32
-  testRunner.When("scrutin ferme", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.And("electeur arthur vote fabrice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 33
+  testRunner.Then("exception Un electeur peux pas voter deux fois", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="afficher scrutin")]
+        [Xunit.TraitAttribute("FeatureTitle", "Scrutin")]
+        [Xunit.TraitAttribute("Description", "afficher scrutin")]
+        public virtual void AfficherScrutin()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("afficher scrutin", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 35
+ this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 36
+  testRunner.Given("scrutin test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 37
+  testRunner.And("electeur arthur vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 38
+  testRunner.And("electeur julien vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 39
+  testRunner.And("electeur pascal vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 40
+  testRunner.And("electeur brice vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 41
+  testRunner.And("electeur dorian vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 42
+  testRunner.When("scrutin ferme", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 43
+  testRunner.Then("resultat scrutin est | paul : 3 (60%)| pierre : 2 (40%) |", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="vainqueur majorite absolue")]
+        [Xunit.TraitAttribute("FeatureTitle", "Scrutin")]
+        [Xunit.TraitAttribute("Description", "vainqueur majorite absolue")]
+        public virtual void VainqueurMajoriteAbsolue()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("vainqueur majorite absolue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 46
+ this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 47
+  testRunner.Given("scrutin test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 48
+  testRunner.And("electeur arthur vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 49
+  testRunner.And("electeur julien vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 50
+  testRunner.And("electeur brice vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 51
+  testRunner.When("scrutin ferme", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 52
+  testRunner.Then("vainqueur est paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="match null premier tour")]
+        [Xunit.TraitAttribute("FeatureTitle", "Scrutin")]
+        [Xunit.TraitAttribute("Description", "match null premier tour")]
+        public virtual void MatchNullPremierTour()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("match null premier tour", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 54
+ this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 55
+  testRunner.Given("scrutin test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 56
+  testRunner.And("electeur arthur vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 57
+  testRunner.And("electeur julien vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 58
+  testRunner.And("electeur pascal vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 59
+  testRunner.And("electeur brice vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 60
+  testRunner.And("electeur dorian vote fabrice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 61
+  testRunner.When("scrutin ferme", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 62
   testRunner.Then("vainqueur est null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 34
+#line 63
   testRunner.Then("tour est 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -287,29 +449,118 @@ namespace SpecFlowScrutin.Specs.Features
                 table3.AddRow(new string[] {
                             "2",
                             "pierre"});
-#line 35
+#line 64
   testRunner.And("garder deux candidats", ((string)(null)), table3, "And ");
 #line hidden
-#line 39
+#line 68
   testRunner.Given("electeur arthur vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 40
+#line 69
   testRunner.And("electeur julien vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 41
+#line 70
   testRunner.And("electeur pascal vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 42
+#line 71
   testRunner.And("electeur brice vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 43
+#line 72
   testRunner.And("electeur dorian vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 44
+#line 73
   testRunner.When("scrutin ferme", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 45
+#line 74
   testRunner.Then("vainqueur est paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="match nul second tour")]
+        [Xunit.TraitAttribute("FeatureTitle", "Scrutin")]
+        [Xunit.TraitAttribute("Description", "match nul second tour")]
+        public virtual void MatchNulSecondTour()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("match nul second tour", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 76
+ this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 77
+  testRunner.Given("scrutin test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 78
+  testRunner.And("electeur arthur vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 79
+  testRunner.And("electeur julien vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 80
+  testRunner.And("electeur pascal vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 81
+  testRunner.And("electeur brice vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 82
+  testRunner.And("electeur dorian vote fabrice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 83
+  testRunner.When("scrutin ferme", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 84
+  testRunner.Then("vainqueur est null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 85
+  testRunner.Then("tour est 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Id",
+                            "Name"});
+                table4.AddRow(new string[] {
+                            "1",
+                            "paul"});
+                table4.AddRow(new string[] {
+                            "2",
+                            "pierre"});
+#line 86
+  testRunner.And("garder deux candidats", ((string)(null)), table4, "And ");
+#line hidden
+#line 90
+  testRunner.Given("electeur arthur vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 91
+  testRunner.And("electeur julien vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 92
+  testRunner.And("electeur brice vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 93
+  testRunner.And("electeur dorian vote pierre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 94
+  testRunner.When("scrutin ferme", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 95
+  testRunner.Then("vainqueur est null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

@@ -9,7 +9,7 @@ namespace SpecFlowScrutin.Specs.Steps
     public sealed class ScrutinStepDefinitions
     {
 
-        private readonly Scrutin _scrutin;
+        private Scrutin _scrutin;
 
         private List<Candidat> _candidats;
 
@@ -30,8 +30,6 @@ namespace SpecFlowScrutin.Specs.Steps
                 _candidats.Add(new Candidat(h, _candidats.Count));
             }
         }
-
- 
 
         [Given(@"scrutin test")]
         public void GivenScrutin()
@@ -91,6 +89,14 @@ namespace SpecFlowScrutin.Specs.Steps
 
             vainqueur.getName().Should().Be(nomVainqueurAttendu);
         }
+
+        [Then(@"resultat scrutin est (.*)")]
+        public void ThenResultatScrutinEstPaulPierre(string resultatAttendu)
+        {
+            _scrutin.afficherResultats().Should().Be(resultatAttendu);
+        }
+
+
 
         [Then("tour est (.*)")]
         public void ThenTourEst(int tourAttendu)
