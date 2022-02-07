@@ -1,0 +1,10 @@
+C:\Users\Julien\Desktop\ProjetBDD\SpecFlowScrutin\SpecFlowScrutin\bin\Debug\netcoreapp3.1\SpecFlowScrutin.deps.json
+C:\Users\Julien\Desktop\ProjetBDD\SpecFlowScrutin\SpecFlowScrutin\bin\Debug\netcoreapp3.1\SpecFlowScrutin.dll
+C:\Users\Julien\Desktop\ProjetBDD\SpecFlowScrutin\SpecFlowScrutin\bin\Debug\netcoreapp3.1\SpecFlowScrutin.pdb
+C:\Users\Julien\Desktop\ProjetBDD\SpecFlowScrutin\SpecFlowScrutin\obj\Debug\netcoreapp3.1\SpecFlowScrutin.csproj.AssemblyReference.cache
+C:\Users\Julien\Desktop\ProjetBDD\SpecFlowScrutin\SpecFlowScrutin\obj\Debug\netcoreapp3.1\SpecFlowScrutin.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Julien\Desktop\ProjetBDD\SpecFlowScrutin\SpecFlowScrutin\obj\Debug\netcoreapp3.1\SpecFlowScrutin.AssemblyInfoInputs.cache
+C:\Users\Julien\Desktop\ProjetBDD\SpecFlowScrutin\SpecFlowScrutin\obj\Debug\netcoreapp3.1\SpecFlowScrutin.AssemblyInfo.cs
+C:\Users\Julien\Desktop\ProjetBDD\SpecFlowScrutin\SpecFlowScrutin\obj\Debug\netcoreapp3.1\SpecFlowScrutin.csproj.CoreCompileInputs.cache
+C:\Users\Julien\Desktop\ProjetBDD\SpecFlowScrutin\SpecFlowScrutin\obj\Debug\netcoreapp3.1\SpecFlowScrutin.dll
+C:\Users\Julien\Desktop\ProjetBDD\SpecFlowScrutin\SpecFlowScrutin\obj\Debug\netcoreapp3.1\SpecFlowScrutin.pdb
