@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SpecFlowScrutin
 {
@@ -20,6 +21,8 @@ namespace SpecFlowScrutin
         public Dictionary<Candidat, int> resultatsRate = new Dictionary<Candidat, int>();
 
         protected static Candidat voteBlanc = new Candidat("", 9999999);
+
+        public Candidat vainqueurScrutin = voteBlanc;
         public Scrutin()
         {
         }
@@ -27,12 +30,22 @@ namespace SpecFlowScrutin
         public void FermerScrutin()
         {
             estOuvert = false;
+            calculPourcentageVoies();
+            OuvrirScrutin(calcVainqueur());
         }
 
         public void OuvrirScrutin(List<Candidat> lesCandidats)
         {
-            estOuvert = true;
-            Candidats = lesCandidats;
+            if(lesCandidats.Count <= 0)
+            {
+                throw new scrutinException("Aucun candidats");
+            }
+            else
+            {
+                estOuvert = true;
+                tour += 1;
+                Candidats = lesCandidats;
+            }
         }
 
         public void addCandidat(Candidat leCandidat)
@@ -98,12 +111,14 @@ namespace SpecFlowScrutin
         {
             return tour;
         }
-        public Candidat getVainqueur()
+        public List<Candidat> calcVainqueur()
         {
             if (!estOuvert)
             {
+                var finalistes = new List<Candidat>();
                 int plusHautPourcentage = 0;
                 Candidat vainqueur = Candidats.Find(elem => elem.nom == "null");
+
                 foreach (KeyValuePair<Candidat, int> kvp in resultatsRate)
                 {
                     Candidat leCandidat = kvp.Key;
@@ -116,7 +131,30 @@ namespace SpecFlowScrutin
                     }
                 }
 
-                return vainqueur;
+                if (plusHautPourcentage >= 50)
+                {
+                    vainqueurScrutin = vainqueur;
+                }
+                else
+                {
+                    // Prochain tour si on en est au 1er
+                    if(tour == 1)
+                    {
+                        var sorted = resultatsRate.OrderByDescending(x => x.Value).ThenBy(x => x.Key);
+                        foreach (KeyValuePair<Candidat, int> kvp in sorted)
+                        {
+                            finalistes.Add(kvp.Key);
+                        }
+                    }
+                    if(tour == 2)
+                    {
+                        // Aucun gagnant
+                        vainqueurScrutin = voteBlanc;
+                        throw new scrutinException("Pas de vainqueurs");
+
+                    }
+                }
+                return finalistes;
 
             }
             else

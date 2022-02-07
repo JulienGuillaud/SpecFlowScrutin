@@ -15,8 +15,6 @@ namespace SpecFlowScrutin.Specs.Steps
 
         private List<Electeur> _electeurs;
 
-        private readonly ScenarioContext _scenarioContext;
-
         public ScrutinStepDefinitions(Scrutin scrutin)
         {
             _scrutin = scrutin;
@@ -33,41 +31,29 @@ namespace SpecFlowScrutin.Specs.Steps
             }
         }
 
-        [Given(@"electeur")]
-        public void GivenElecteur(string electeur, string candidatName)
-        {
-            _electeurs.Add(new Electeur(electeur, _electeurs.Count));
-            _scrutin.Vote(new Electeur(electeur, _electeurs.Count), candidatName);
-        }
-
+ 
 
         [Given(@"scrutin test")]
         public void GivenScrutin()
         {
             GivenCandidatsSuivants(new Table("null", "paul", "pierre", "fabrice"));
             _scrutin.OuvrirScrutin(_candidats);
-
-            //GivenElecteur("julien", "paul");
-            //GivenElecteur("arthur", "pierre");
-            //GivenElecteur("brice", "jean");
-            //GivenElecteur("dorian", "fabrice");
-            //GivenElecteur("pascal", "paul");
         }
 
-        [Given("electeur (.*) vote (.*)")]
-        public void WhenElecteurVote(string electeur, string candidat)
+        [Given(@"electeur (.*) vote (.*)")]
+        public void GivenElecteurVote(string electeur, string leCandidat)
         {
-            // Si l'electeur existe deja c'est qu'il a déja voté 
-            if(_electeurs.Find(elem => elem.nom == electeur) == null)
+            var electeurRecherche = _electeurs.Find(elem => elem.nom == electeur);
+             //Si l'electeur existe deja c'est qu'il a déja voté 
+            if (electeurRecherche == null)
             {
-                var instanceElecteur = new Electeur("slecteur", _electeurs.Count + 1);
-                _electeurs.Add(instanceElecteur);
-                if (candidat == "null")
+                var newInstanceElecteur = new Electeur(electeur, _electeurs.Count + 1);
+                _electeurs.Add(newInstanceElecteur);
+                if (leCandidat == "null")
                 {
-                    candidat = null;
+                    leCandidat = null;
                 }
-
-                _scrutin.Vote(instanceElecteur, candidat);
+                _scrutin.Vote(newInstanceElecteur, leCandidat);
 
             }
         }
@@ -98,11 +84,10 @@ namespace SpecFlowScrutin.Specs.Steps
         {
             if (nomVainqueurAttendu == "null")
             {
-                _scrutin.getVainqueur().getName().Should().BeNull();
+                _scrutin.vainqueurScrutin.getName().Should().BeNull();
                 return;
             }
-
-            var vainqueur = _scrutin.getVainqueur();
+            var vainqueur = _scrutin.vainqueurScrutin;
 
             vainqueur.getName().Should().Be(nomVainqueurAttendu);
         }
