@@ -72,11 +72,11 @@
 		And electeur dorian vote fabrice
 		When scrutin ferme
 		Then vainqueur est null
-		Then tour est 1
 		And garder deux candidats
 			| Id  | Name   |
 			| 1   | paul   |
 			| 2   | pierre |
+		Then tour est 2
 		Given electeur arthur vote paul
 		And electeur julien vote paul
 		And electeur pascal vote paul
@@ -94,11 +94,11 @@
 		And electeur dorian vote fabrice
 		When scrutin ferme
 		Then vainqueur est null
-		Then tour est 1
 		And garder deux candidats
 			| Id  | Name   |
 			| 1   | paul   |
 			| 2   | pierre |
+		Then tour est 2
 		Given electeur arthur vote paul
 		And electeur julien vote paul
 		And electeur brice vote pierre

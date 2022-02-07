@@ -496,9 +496,6 @@ namespace SpecFlowScrutin.Specs.Features
 #line 74
   testRunner.Then("vainqueur est null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 75
-  testRunner.Then("tour est 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
                 TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id",
                             "Name"});
@@ -508,8 +505,11 @@ namespace SpecFlowScrutin.Specs.Features
                 table3.AddRow(new string[] {
                             "2",
                             "pierre"});
-#line 76
+#line 75
   testRunner.And("garder deux candidats", ((string)(null)), table3, "And ");
+#line hidden
+#line 79
+  testRunner.Then("tour est 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 80
   testRunner.Given("electeur arthur vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
@@ -588,9 +588,6 @@ namespace SpecFlowScrutin.Specs.Features
 #line 96
   testRunner.Then("vainqueur est null", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 97
-  testRunner.Then("tour est 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id",
                             "Name"});
@@ -600,8 +597,11 @@ namespace SpecFlowScrutin.Specs.Features
                 table4.AddRow(new string[] {
                             "2",
                             "pierre"});
-#line 98
+#line 97
   testRunner.And("garder deux candidats", ((string)(null)), table4, "And ");
+#line hidden
+#line 101
+  testRunner.Then("tour est 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 102
   testRunner.Given("electeur arthur vote paul", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
