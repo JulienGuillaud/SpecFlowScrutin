@@ -13,11 +13,13 @@ namespace SpecFlowScrutin
     {
         private bool estOuvert;
         private int tour = 0;
+        private int nbVotes = 0;
+
         public List<Candidat> Candidats = new List<Candidat>();
         public List<Electeur> Electeurs = new List<Electeur>();
 
         public Dictionary<Candidat, int> resultatsVoix = new Dictionary<Candidat, int>();
-        public Dictionary<Candidat, int> resultatsRate = new Dictionary<Candidat, int>();
+        public Dictionary<Candidat, double> resultatsRate = new Dictionary<Candidat, double>();
 
         protected static Candidat voteBlanc = new Candidat("null", 9999999);
 
@@ -35,17 +37,25 @@ namespace SpecFlowScrutin
 
         public void OuvrirScrutin(List<Candidat> lesCandidats)
         {
-            if (lesCandidats.Count <= 0)
+            if (lesCandidats.Count <= 2 && tour == 0)
             {
                 throw new ScrutinException("Il n'y a pas assez de candidats");
             }
             else
             {
-                ResetScrutin();
-                estOuvert = true;
-                tour += 1;
-                Candidats = lesCandidats;
-                Candidats.Add(voteBlanc);
+                if (lesCandidats.Count <= 1 && tour != 0)
+                {
+                    // End
+                }
+                else
+                {
+                    ResetScrutin();
+                    estOuvert = true;
+                    tour += 1;
+                    Candidats = lesCandidats;
+                    Candidats.Add(voteBlanc);
+
+                }
             }
         }
 
@@ -55,20 +65,19 @@ namespace SpecFlowScrutin
             foreach (KeyValuePair<Candidat, int> kvp in resultatsVoix)
             {
                 Candidat leCandidat = kvp.Key;
-                int totalCandidats = Candidats.Count;
                 int voixCandidat = kvp.Value;
-                int pourcentageVoix = (int)Math.Floor((double)(voixCandidat / totalCandidats) * 100);
-                resultatString += "| " + leCandidat.nom + " : " + " (" + pourcentageVoix + "%)";
+                double pourcentageVoix = Math.Round(((double)voixCandidat / (double)nbVotes) * 100, 2, MidpointRounding.ToEven);
+                resultatString += "| " + leCandidat.nom + " : " + voixCandidat + " (" + pourcentageVoix + "%)";
             } // | paul : 3 (60%)| pierre : 2 (40%) |
-            resultatString += " |";
             return resultatString;
         }
 
         public void ResetScrutin()
         {
             vainqueurScrutin = voteBlanc;
+            nbVotes = 0;
             resultatsVoix = new Dictionary<Candidat, int>();
-            resultatsRate = new Dictionary<Candidat, int>();
+            resultatsRate = new Dictionary<Candidat, double>();
             Electeurs = new List<Electeur>();
         }
 
@@ -86,7 +95,9 @@ namespace SpecFlowScrutin
 
         public List<Candidat> GetCandidats()
         {
-            return Candidats;
+            List<Candidat> candidatsClone = Candidats;
+            candidatsClone.RemoveAt(candidatsClone.Count() - 1);
+            return candidatsClone;
         }
 
         public void Vote(Electeur leElecteur, String nomCandidat)
@@ -94,16 +105,27 @@ namespace SpecFlowScrutin
             if (estOuvert)
             {
                 Candidat candidatEnregistre = Candidats.Find(x => x.nom == nomCandidat);
+                Electeur electeurEnregistre = Electeurs.Find(x => x.nom == leElecteur.nom);
                 Console.Write("CANDIDAT ENREGISTRE = " + candidatEnregistre.nom);
                 if (nomCandidat == null || nomCandidat == "null")
                 {
                     candidatEnregistre = voteBlanc;
                 }
-                if (!(leElecteur.aVoter()))
+                if (electeurEnregistre == null && !(leElecteur.aVoter()))
                 {
                     leElecteur.setAVoter();
                     Electeurs.Add(leElecteur);
-                    resultatsVoix[candidatEnregistre] = resultatsVoix[candidatEnregistre] + 1;
+                    nbVotes += 1;
+                    int currentCount;
+                    if (resultatsVoix.TryGetValue(candidatEnregistre, out currentCount))
+                    {
+                        resultatsVoix[candidatEnregistre] = currentCount + 1;
+                    }
+                    else
+                    {
+                        resultatsVoix[candidatEnregistre] = 1;
+                    }
+
                 }
                 else
                 {
@@ -123,10 +145,11 @@ namespace SpecFlowScrutin
                 foreach (KeyValuePair<Candidat, int> kvp in resultatsVoix)
                 {
                     Candidat leCandidat = kvp.Key;
-                    int totalCandidats = Candidats.Count;
                     int voixCandidat = kvp.Value;
-                    int pourcentageVoix = (int)Math.Floor((double)(voixCandidat / totalCandidats) * 100);
-                    resultatsRate[leCandidat] = pourcentageVoix;
+                    double pourcentageVoix = Math.Round(((double)voixCandidat / (double)nbVotes) * 100, 2, MidpointRounding.ToEven);
+                    resultatsRate.Add(leCandidat, pourcentageVoix);
+                    leCandidat.rate = pourcentageVoix;
+                    leCandidat.voix = voixCandidat;
                 }
             }
             else
@@ -145,13 +168,13 @@ namespace SpecFlowScrutin
             if (!estOuvert)
             {
                 var finalistes = new List<Candidat>();
-                int plusHautPourcentage = 0;
+                double plusHautPourcentage = 0;
                 Candidat vainqueur = Candidats.Find(elem => elem.nom == "null");
 
-                foreach (KeyValuePair<Candidat, int> kvp in resultatsRate)
+                foreach (KeyValuePair<Candidat, double> kvp in resultatsRate)
                 {
                     Candidat leCandidat = kvp.Key;
-                    int voixCandidat = kvp.Value;
+                    double voixCandidat = kvp.Value;
 
                     if (voixCandidat > plusHautPourcentage)
                     {
@@ -160,7 +183,7 @@ namespace SpecFlowScrutin
                     }
                 }
 
-                if (plusHautPourcentage >= 50)
+                if (plusHautPourcentage > 50)
                 {
                     vainqueurScrutin = vainqueur;
                 }
@@ -169,9 +192,9 @@ namespace SpecFlowScrutin
                     // Lancer le prochain tour avec les 2 finalistes
                     if (tour == 1)
                     {
-                        var sorted = resultatsRate.OrderByDescending(x => x.Value).ThenBy(x => x.Key);
+                        var sorted = filterDictionary(resultatsRate);
                         int compteur = 0;
-                        foreach (KeyValuePair<Candidat, int> kvp in sorted)
+                        foreach (KeyValuePair<Candidat, double> kvp in sorted)
                         {
                             if (compteur < 2)
                             {
@@ -189,8 +212,6 @@ namespace SpecFlowScrutin
                     {
                         // Aucun gagnant
                         vainqueurScrutin = voteBlanc;
-                        //throw new scrutinException("Pas de vainqueurs"); 
-
                     }
                 }
                 return finalistes;
@@ -202,7 +223,12 @@ namespace SpecFlowScrutin
             }
         }
 
-        public int GetVoixPourcentage(Candidat leCandidat)
+        protected Dictionary<Candidat, double> filterDictionary(Dictionary<Candidat, double> elem)
+        {
+            return (from entry in elem orderby entry.Key.rate descending select entry).ToDictionary(x => x.Key, x => x.Value);
+        }
+
+        public double GetVoixPourcentage(Candidat leCandidat)
         {
             return resultatsRate[leCandidat];
         }

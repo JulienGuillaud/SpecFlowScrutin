@@ -8,6 +8,9 @@ namespace SpecFlowScrutin
     {
         public String nom { get; }
         public int id { get; }
+
+        public double rate { get; set; }
+        public int voix { get; set; }
         public Candidat(string newName, int newId)
         {
             nom = newName;

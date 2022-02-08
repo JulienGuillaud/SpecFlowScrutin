@@ -8,7 +8,7 @@ namespace SpecFlowScrutin.Specs.Steps
     [Binding]
     public sealed class ScrutinStepDefinitions
     {
-
+        // Test git vstudio cache
         private readonly Scrutin _scrutin;
 
         private List<Candidat> _candidats;
@@ -39,14 +39,24 @@ namespace SpecFlowScrutin.Specs.Steps
             _scrutin.OuvrirScrutin(_candidats);
         }
 
-        [Given(@"electeur (.*) vote (.*)")]
+        [Given("electeur (.*) vote (.*)")]
         public void GivenElecteurVote(string electeur, string? leCandidat)
         {
-            //var electeurRecherche = _electeurs.Find(elem => elem.nom == electeur);
             var newInstanceElecteur = new Electeur(electeur, _electeurs.Count + 1);
             _electeurs.Add(newInstanceElecteur);
 
             _scrutin.Vote(newInstanceElecteur, leCandidat);
+        }
+
+        [Then("electeur (.*) vote (.*) exception (.*)")]
+        public void GivenExceptionElecteurVote(string electeur, string? leCandidat, string erreurMessage)
+        {
+            var newInstanceElecteur = new Electeur(electeur, _electeurs.Count + 1);
+            _electeurs.Add(newInstanceElecteur);
+
+            _scrutin.Invoking(y => y.Vote(newInstanceElecteur, leCandidat))
+                .Should().Throw<System.Exception>()
+                .WithMessage(erreurMessage);
         }
 
         [When(@"scrutin ferme")]
@@ -55,7 +65,7 @@ namespace SpecFlowScrutin.Specs.Steps
             _scrutin.FermerScrutin();
         }
 
-        [When(@"scrutin ouvert")]
+        [When("scrutin ouvert")]
         public void WhenScrutinOuvert()
         {
             _scrutin.OuvrirScrutin(_candidats);
@@ -75,7 +85,7 @@ namespace SpecFlowScrutin.Specs.Steps
         {
             if (nomVainqueurAttendu == "null")
             {
-                _scrutin.vainqueurScrutin.getName().Should().BeNull();
+                _scrutin.vainqueurScrutin.getName().Should().Be("null");
                 return;
             }
             var vainqueur = _scrutin.vainqueurScrutin;
@@ -102,6 +112,14 @@ namespace SpecFlowScrutin.Specs.Steps
         public void ThenExceptionMessage(string messageErreur)
         {
             _scrutin.Invoking(y => y.FermerScrutin())
+                .Should().Throw<System.Exception>()
+                .WithMessage(messageErreur);
+        }
+
+        [When("scrutin ouvert exception (.*)")]
+        public void ThenOuvrirScrutinExceptionMessage(string messageErreur)
+        {
+            _scrutin.Invoking(y => y.OuvrirScrutin(_candidats))
                 .Should().Throw<System.Exception>()
                 .WithMessage(messageErreur);
         }
