@@ -1,9 +1,0 @@
-C:\Users\Julien\Desktop\ProjetBDD\SpecFlowCalculator\SpecFlowCalculator\bin\Debug\netcoreapp3.1\SpecFlowCalculator.deps.json
-C:\Users\Julien\Desktop\ProjetBDD\SpecFlowCalculator\SpecFlowCalculator\bin\Debug\netcoreapp3.1\SpecFlowCalculator.dll
-C:\Users\Julien\Desktop\ProjetBDD\SpecFlowCalculator\SpecFlowCalculator\bin\Debug\netcoreapp3.1\SpecFlowCalculator.pdb
-C:\Users\Julien\Desktop\ProjetBDD\SpecFlowCalculator\SpecFlowCalculator\obj\Debug\netcoreapp3.1\SpecFlowCalculator.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Julien\Desktop\ProjetBDD\SpecFlowCalculator\SpecFlowCalculator\obj\Debug\netcoreapp3.1\SpecFlowCalculator.AssemblyInfoInputs.cache
-C:\Users\Julien\Desktop\ProjetBDD\SpecFlowCalculator\SpecFlowCalculator\obj\Debug\netcoreapp3.1\SpecFlowCalculator.AssemblyInfo.cs
-C:\Users\Julien\Desktop\ProjetBDD\SpecFlowCalculator\SpecFlowCalculator\obj\Debug\netcoreapp3.1\SpecFlowCalculator.csproj.CoreCompileInputs.cache
-C:\Users\Julien\Desktop\ProjetBDD\SpecFlowCalculator\SpecFlowCalculator\obj\Debug\netcoreapp3.1\SpecFlowCalculator.dll
-C:\Users\Julien\Desktop\ProjetBDD\SpecFlowCalculator\SpecFlowCalculator\obj\Debug\netcoreapp3.1\SpecFlowCalculator.pdb
